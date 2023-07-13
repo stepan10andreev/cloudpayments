@@ -1,28 +1,8 @@
-// 1 вариант - элемент изначаьно в разметке
-// const PAYMENT_CONTAINER = document.getElementById('payment-container');
-
-// 2 вариант - создание страницы-разметки из самого скрипта
+// 1 вариант - создание страницы-разметки из самого скрипта
 function createPaymentPage() {
-    const PAYMENT_CONTAINER = document.createElement('div');
-    PAYMENT_CONTAINER.id = 'payment-container';
-    document.body.prepend(PAYMENT_CONTAINER)
-    return PAYMENT_CONTAINER
-}
+  const PAYMENT_CONTAINER = createPaymentContainer();
 
-// функцию динамической загрузки скрипта
-function loadScript(src) {
-    let script = document.createElement('script');
-    script.src = src;
-    // script.defer = true;
-    // script.async = false;
-    document.head.append(script);
-}
-
-// выполнение функций
-const PAYMENT_CONTAINER = createPaymentPage();
-// loadScript('./main.js')
-
-const element = new cp.PaymentBlocks({
+  const element = new cp.PaymentBlocks({
     publicId: "test_api_00000000000000000000002",
     description: "Оплата товара №1 в ДомАптека",
     amount: 100,
@@ -35,7 +15,7 @@ const element = new cp.PaymentBlocks({
     applePaySupport: true,
     googlePaySupport: true,
     yandexPaySupport: true,
-}, {
+    }, {
     appearance: {
       colors: {
         primaryButtonColor: "#2E71FC",
@@ -63,19 +43,31 @@ const element = new cp.PaymentBlocks({
         fontSize: "16px"
       }
     }
-});
+  });
 
 
-element.mount(PAYMENT_CONTAINER);
+  element.mount(PAYMENT_CONTAINER);
 
-element.on("destroy", () => {
-    console.log("destroy");
-});
+  element.on("destroy", () => {
+      console.log("destroy");
+  });
 
-element.on("success", (result) => {
-    console.log("success", result);
-});
+  element.on("success", (result) => {
+      console.log("success", result);
+  });
 
-element.on("fail", (result) => {
-    console.log("fail", result);
-});
+  element.on("fail", (result) => {
+      console.log("fail", result);
+  });
+
+  console.log(window.location)
+}
+
+function createPaymentContainer() {
+  const PAYMENT_CONTAINER = document.createElement('div');
+  PAYMENT_CONTAINER.id = 'payment-container';
+  document.body.prepend(PAYMENT_CONTAINER)
+  return PAYMENT_CONTAINER
+}
+
+createPaymentPage()
