@@ -1,5 +1,7 @@
-// 1 вариант - создание страницы-разметки из самого скрипта
-function createPaymentPage() {
+// 1 вариант - создание страницы-разметки из самого скрипта (с Промисом)
+async function createPaymentPage() {
+  await loadCloudpaymentsScript('https://widget.cloudpayments.ru/bundles/paymentblocks.js');
+
   const PAYMENT_CONTAINER = createPaymentContainer();
 
   const element = new cp.PaymentBlocks({
@@ -45,29 +47,43 @@ function createPaymentPage() {
     }
   });
 
-
+  
   element.mount(PAYMENT_CONTAINER);
-
+  
   element.on("destroy", () => {
       console.log("destroy");
+      // действия при демонтировании платежного блока
   });
 
   element.on("success", (result) => {
       console.log("success", result);
+      // действия при успешной оплате
   });
 
   element.on("fail", (result) => {
       console.log("fail", result);
+      // действия при неуспешной оплате
   });
 
-  console.log(window.location)
 }
 
 function createPaymentContainer() {
   const PAYMENT_CONTAINER = document.createElement('div');
   PAYMENT_CONTAINER.id = 'payment-container';
-  document.body.prepend(PAYMENT_CONTAINER)
-  return PAYMENT_CONTAINER
+  document.body.prepend(PAYMENT_CONTAINER);
+  return PAYMENT_CONTAINER;
 }
 
-createPaymentPage()
+function loadCloudpaymentsScript(src) {
+  return new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.src = src;
+    script.defer = true;
+    script.addEventListener('load', () => {
+      resolve()
+    })
+    document.head.append(script);
+  })
+}
+
+createPaymentPage();

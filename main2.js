@@ -59,16 +59,3 @@
 // element.on("fail", (result) => {
 //     console.log("fail", result);
 // });
-
-
-
-
-// // функцию динамической загрузки скрипта
-// function loadScript(src) {
-//   let script = document.createElement('script');
-//   script.src = src;
-//   // script.defer = true;
-//   // script.async = false;
-//   document.head.append(script);
-// }
-// loadScript('./main.js')
