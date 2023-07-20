@@ -5,9 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Страница оплаты товара в ДомАптека</title>
     <link rel="stylesheet" href="./style.css">
+    <script src="https://widget.cloudpayments.ru/bundles/cloudpayments"></script>
     <script defer src="./main.js"></script>
 </head>
 <body>
-    <!-- <div id="payment-container"></div> -->
+    <div class="payment-container">
+        <article class="payment-container__product product">
+            Товар №1
+        </article>
+        <button id="pay-button" class="payment-container__button pay-btn">Оплатить</button>
+    </div>
 </body>
 </html>
